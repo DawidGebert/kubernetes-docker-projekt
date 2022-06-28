@@ -3,18 +3,14 @@ import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 
-const backendURL = process.env.REACT_APP_BACKEND_URL
-
 function BigTodos() {
    const [newBigTodoText, setNewBigTodoText] = useState('');
    const [bigTodos, setBigTodos] = useState([]);
 
-   const backendURL = process.env.REACT_APP_BACKEND_URL
-
    const navigate = useNavigate();
 
    useEffect(() => {
-      axios.get(`${backendURL}/bigtodos`)
+      axios.get(`/api/bigtodos`)
       .then((response) => {
          setBigTodos(response.data.bigTodos)
       })
@@ -24,14 +20,14 @@ function BigTodos() {
       const newBigTodo = {
          content: newBigTodoText
       }
-      axios.post(`${backendURL}/bigtodos`, newBigTodo)
+      axios.post(`/api/bigtodos`, newBigTodo)
       .then(() => {
          alert("added!")
       })
    }
 
    const deleteBigTodo = (id) => {
-      axios.delete(`${backendURL}/bigtodos/${id}`)
+      axios.delete(`/api/bigtodos/${id}`)
       .then(() => {
          alert("deleted!")
          setBigTodos(bigTodos.filter(bigTodo => bigTodo._id !== id))

@@ -8,12 +8,10 @@ function Todos() {
    const [newTodoText, setNewTodoText] = useState('');
    const [todos, setTodos] = useState([]);
 
-   const backendURL = process.env.REACT_APP_BACKEND_URL
-
    const navigate = useNavigate();
 
    useEffect(() => {
-    axios.get(`${backendURL}/todos`)
+    axios.get(`/api/todos`)
     .then((response) => {
        setTodos(response.data.todos)
     })
@@ -24,14 +22,14 @@ function Todos() {
       content: newTodoText
     }
   
-    axios.post(`${backendURL}/todos`, newTodo)
+    axios.post(`/api/todos`, newTodo)
     .then(() => {
       alert("Success added new todo");
     })
   }
 
   const deleteTodo = (id) => {
-    axios.delete(`${backendURL}/todos/${id}`)
+    axios.delete(`/api/todos/${id}`)
     .then(() => {
       alert("Success deleted")
       setTodos(todos.filter(todo => todo._id !== id))
